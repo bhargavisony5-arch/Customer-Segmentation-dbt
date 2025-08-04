@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: mart_customer_segments
+    description: >
+      Customer segmentation model based on total spending, transaction count,
+      and product diversity. Assigns segment labels using ntile-based rankings.
+
+    columns:
+      - name: customer_id
+        description: "Unique identifier for each customer."
+        tests: [not_null, unique]
+
+      - name: total_spent
+        description: "Total amount the customer has spent across all transactions."
+
+      - name: num_transactions
+        description: "Total number of transactions made by the customer."
+
+      - name: num_products
+        description: "Number of distinct products purchased by the customer."
+
+      - name: spend_segment
+        description: >
+          Spend-based segment using ntile(3).
+          'High' = top 1/3, 'Medium' = middle 1/3, 'Low' = bottom 1/3.
+
+      - name: frequency_segment
+        description: >
+          Frequency-based segment using ntile(3).
+          'Frequent' = most active, 'Occasional' = medium, 'Rare' = least active.
+
+      - name: diversity_segment
+        description: >
+          Product diversity segment using ntile(2).
+          'Diverse' = more product variety, 'Focused' = fewer types of products.

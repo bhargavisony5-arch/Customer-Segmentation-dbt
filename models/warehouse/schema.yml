@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension with full name and mapped country names."
+    columns:
+      - name: customer_id
+        description: "Primary key for customer"
+        tests: [unique, not_null]
+      - name: full_name
+      - name: email
+      - name: gender
+      - name: age
+      - name: country_code
+      - name: country_name
+      - name: signup_date
+
+  - name: dim_products
+    description: "Product dimension with product name and price."
+    columns:
+      - name: product_id
+        description: "Primary key for product"
+        tests: [unique, not_null]
+      - name: product_name
+      - name: category
+      - name: price_gbp
+
+  - name: fact_transactions
+    description: "Fact table joining transactions with product pricing."
+    columns:
+      - name: transaction_id
+        description: "Primary key for transaction"
+        tests: [unique, not_null]
+      - name: customer_id
+        description: "Foreign key to dim_customers"
+        tests: [not_null]
+      - name: product_id
+        description: "Foreign key to dim_products"
+        tests: [not_null]
+      - name: quantity
+      - name: transaction_date
+      - name: price_gbp
+      - name: total_amount
+        description: "Revenue from the transaction"
